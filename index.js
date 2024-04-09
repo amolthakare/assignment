@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { bulkAddPosts, downloadExcel } = require('./postController');
-const { getAllUsers } = require('./UserController');
+const { bulkAddPosts, downloadExcel, getUserPosts } = require('./postController');
+const { getAllUsers } = require('./userController');
 
 router.get('/', (req, res) => {
   res.sendFile('views/home.html', { root: __dirname + '/../' });

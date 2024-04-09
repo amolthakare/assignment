@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cointab SE-ASSIGNMENT</title>
+</head>
+<body>
+    <h1>Cointab SE-ASSIGNMENT</h1>
+    <button id="allUsersBtn">All Users</button>
+    <div id="userList"></div>
+
+    <script>
+        document.getElementById('allUsersBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/allUsers');
+                const users = await response.json();
+                const userList = document.getElementById('userList');
+                userList.innerHTML = ''; // Clear previous content
+
+                users.forEach(user => {
+                    const userInfo = document.createElement('div');
+                    userInfo.innerHTML = `
+                        <p>Name: ${user.name}</p>
+                        <p>Email: ${user.email}</p>
+                        <p>Phone: ${user.phone}</p>
+                        <p>Website: ${user.website}</p>
+                        <p>City: ${user.address.city}</p>
+                        <p>Company: ${user.company.name}</p>
+                        <button onclick="addUser('${user.id}')">Add</button>
+                    `;
+                    userList.appendChild(userInfo);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        });
+
+        async function addUser(userId) {
+            try {
+                await fetch(`/bulkAddPosts/${userId}`, { method: 'POST' });
+                // Optionally, you can reload the page or show a success message
+                // Reload the page: window.location.reload();
+                alert('User added successfully');
+            } catch (error) {
+                console.error('Error adding user:', error);
+            }
+        }
+    </script>
+</body>
+</html>

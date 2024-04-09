@@ -27,18 +27,19 @@ const bulkAddPosts = async (req, res) => {
 };
 
 //Excel 
-// const downloadExcel = async (req, res) => {
-//   const userId = req.params.userId;
-//   try {
-//     const posts = await Post.findAll({ where: { userId } });
-//     // download
-//     res.status(200).send('Excel file generated');
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+const downloadExcel = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const posts = await Post.findAll({ where: { userId } });
+    // download
+    res.status(200).send('Excel file generated');
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   getUserPosts,
-  bulkAddPosts
+  bulkAddPosts,
+  downloadExcel
 };
